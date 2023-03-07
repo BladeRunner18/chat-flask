@@ -4,6 +4,7 @@ from run import app
 from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter, update_counterbyid
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
+import openai
 
 
 @app.route('/')
@@ -64,3 +65,19 @@ def get_count():
     """
     counter = Counters.query.filter(Counters.id == 1).first()
     return make_succ_response(0) if counter is None else make_succ_response(counter.count)
+
+
+@app.route('/api/chat', methods=['POST'])
+def chat():
+    params = request.get_json();
+
+    if 'content' not in params:
+        return make_err_response("内容不能为空")
+
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        api_key="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",
+        messages=[{"role": "user",
+                   "content": params['content']}]
+    )
+    make_succ_response(completion)
