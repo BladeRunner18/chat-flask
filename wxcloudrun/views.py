@@ -74,26 +74,26 @@ def chat():
 
     print(params, '23232')
 
-    from_user = params['FromUserName']
-    content = params['Content']
+    # from_user = params['FromUserName']
+    # content = params['Content']
 
-    p = {
-        "touser": from_user,
-        "msgtype": 'text',
-        "text": {
-            "content": "Hello World"
-        }
-    }
+    # p = {
+    #     "touser": from_user,
+    #     "msgtype": 'text',
+    #     "text": {
+    #         "content": "Hello World"
+    #     }
+    # }
 
-    headers = {
-        "Content-Type": "application/json"
-    }
+    # headers = {
+    #     "Content-Type": "application/json"
+    # }
 
-    x = requests.post(
-        url="https://api.weixin.qq.com/cgi-bin/message/custom/send", params=p, headers=headers)
+    # x = requests.post(
+    #     url="https://api.weixin.qq.com/cgi-bin/message/custom/send", params=p, headers=headers)
 
-    return make_succ_response("Hello")
-    
+    return make_succ_response("success")
+
     # if 'content' not in params:
     #     return make_err_response("内容不能为空")
 
