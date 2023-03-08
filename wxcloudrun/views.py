@@ -5,6 +5,7 @@ from wxcloudrun.dao import delete_counterbyid, query_counterbyid, insert_counter
 from wxcloudrun.model import Counters
 from wxcloudrun.response import make_succ_empty_response, make_succ_response, make_err_response
 import openai
+import requests
 
 
 @app.route('/')
@@ -69,12 +70,32 @@ def get_count():
 
 @app.route('/api/chat', methods=['POST'])
 def chat():
-    params = request.get_json();
+    params = request.get_json()
 
-    return make_succ_response("hello")
+    print(params, '23232')
 
-    if 'content' not in params:
-        return make_err_response("内容不能为空")
+    from_user = params['FromUserName']
+    content = params['Content']
+
+    p = {
+        "touser": from_user,
+        "msgtype": 'text',
+        "text": {
+            "content": "Hello World"
+        }
+    }
+
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    x = requests.post(
+        url="https://api.weixin.qq.com/cgi-bin/message/custom/send", params=p, headers=headers)
+
+    return make_succ_response("Hello")
+    
+    # if 'content' not in params:
+    #     return make_err_response("内容不能为空")
 
     # completion = openai.ChatCompletion.create(
     #     model="gpt-3.5-turbo",
