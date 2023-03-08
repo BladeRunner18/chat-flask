@@ -71,13 +71,15 @@ def get_count():
 def chat():
     params = request.get_json();
 
+    return make_succ_response("hello")
+
     if 'content' not in params:
         return make_err_response("内容不能为空")
 
-    completion = openai.ChatCompletion.create(
-        model="gpt-3.5-turbo",
-        api_key="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",
-        messages=[{"role": "user",
-                   "content": params['content']}]
-    )
-    make_succ_response(completion)
+    # completion = openai.ChatCompletion.create(
+    #     model="gpt-3.5-turbo",
+    #     api_key="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",
+    #     messages=[{"role": "user",
+    #                "content": params['content']}]
+    # )
+    # return make_succ_response(completion)
